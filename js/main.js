@@ -20,4 +20,3 @@ const getRandomCoordinate = function (min, max, afterDot) {
 
 getRandomCoordinate(10, 200,6);
 getRandomNumber(10,500);
-
