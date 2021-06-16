@@ -62,6 +62,7 @@ const getRandomCoordinate = function (min, max, afterDot) {
 const shuffle = function(array) {
   const cloneArray = array.slice(0);
   cloneArray.sort(() => Math.random() - 0.5);
+
   return cloneArray;
 };
 
