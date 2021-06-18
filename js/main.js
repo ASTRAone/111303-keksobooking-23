@@ -37,6 +37,11 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
+const LAT_MIN = 35.65;
+const LAT_MAX = 35.7;
+const LNG_MIN = 139.7;
+const LNG_MAX = 139.8;
+
 const SIMILAR_COUNT = 4;
 
 // взято с https://learn.javascript.ru https://habr.com/ru/post/312880/#s2_11  https://javascript.ru/Math.round //
@@ -71,8 +76,10 @@ const getRandomArrayElement = (items) =>
 
 
 const createAdvertisement = () => {
-  const lat = getRandomCoordinate(35.65, 35.7, 5);
-  const lng = getRandomCoordinate(139.7, 139.8, 5);
+  const offerlocation = {
+    lat: getRandomCoordinate(LAT_MIN, LAT_MAX, 5),
+    lng: getRandomCoordinate(LNG_MIN, LNG_MAX, 5),
+  };
   const featuresRandomIndex = getRandomNumber(1, FEATURES.length - 1);
   const features = shuffle(FEATURES).slice(0, featuresRandomIndex);
 
@@ -82,7 +89,7 @@ const createAdvertisement = () => {
     },
     offer: {
       title: getRandomArrayElement(TITLES),
-      address: `${lat}, ${lng}`,
+      address: `${offerlocation.lat}, ${offerlocation.lng}`,
       price: getRandomNumber(0, 10000),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomNumber(1, 10),
@@ -92,10 +99,7 @@ const createAdvertisement = () => {
       features,
       description: getRandomArrayElement(DESCRIPTION),
       photos: getRandomArrayElement(PHOTOS),
-      location: {
-        lat,
-        lng,
-      },
+      location: offerlocation,
     },
   };
 };
@@ -104,4 +108,5 @@ const similarAdvertisement = new Array(SIMILAR_COUNT)
   .fill(null)
   .map(() => createAdvertisement());
 
-similarAdvertisement.slice();
+// eslint-disable-next-line no-console
+console.log(similarAdvertisement);
