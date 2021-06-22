@@ -108,5 +108,4 @@ const similarAdvertisement = new Array(SIMILAR_COUNT)
   .fill(null)
   .map(() => createAdvertisement());
 
-// eslint-disable-next-line no-console
-console.log(similarAdvertisement);
+similarAdvertisement();
