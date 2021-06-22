@@ -108,4 +108,4 @@ const similarAdvertisement = new Array(SIMILAR_COUNT)
   .fill(null)
   .map(() => createAdvertisement());
 
-similarAdvertisement();
+similarAdvertisement;
