@@ -1,3 +1,3 @@
-import {similarAdvertisement} from './utils.js';
+import {similarAdvertisement} from './data.js';
 
-similarAdvertisement;
+similarAdvertisement();
