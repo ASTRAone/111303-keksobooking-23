@@ -78,4 +78,6 @@ const similarAdvertisement = new Array(SIMILAR_COUNT)
   .fill(null)
   .map(() => createAdvertisement());
 
-export {similarAdvertisement};
+similarAdvertisement();
+
+export {createAdvertisement};
