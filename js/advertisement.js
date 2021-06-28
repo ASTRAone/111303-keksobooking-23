@@ -37,7 +37,7 @@ const createAdvertisementElement = (currentItem) => {
   advertisementElement.querySelector('.popup__description').textContent = currentItem.offer.description;
   if (advertisementElement.querySelector('.popup__description').textContent === undefined || advertisementElement.querySelector('.popup__description').textContent === '') {
     advertisementElement.querySelector('.popup__description').remove();
-  };
+  }
 
   //выводим фотографии
 
