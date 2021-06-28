@@ -72,5 +72,4 @@ const createAdvertisement = () => {
     },
   };
 };
-
 export {createAdvertisement};
