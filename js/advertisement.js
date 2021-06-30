@@ -7,11 +7,11 @@ const PLACE_TYPES_LIST = {
   'palace': 'Дворец',
   'hotel': 'Отель',
 };
-
 const checkChild = (element) => {
-  if (element.children.length === 0)
+  if  (element.children.length === 0) {
     element.remove();
-}
+  }
+};
 
 const similarAdvertisementTemplate = document.querySelector('#card').content.querySelector('.popup');
 
@@ -27,7 +27,7 @@ createAdvertisementElement.forEach(({author, offer}) => {
   const placeTypeKey = offer.type;
   advertisementElement.querySelector('.popup__title').textContent = offer.title;
   advertisementElement.querySelector('.popup__text--address').textContent = offer.address;
-  advertisementElement.querySelector('.popup__text--price').textContent = `${offer.price}₽/ночь`;
+  advertisementElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
   advertisementElement.querySelector('.popup__type').textContent = PLACE_TYPES_LIST[placeTypeKey];
   advertisementElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
   advertisementElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
@@ -55,10 +55,9 @@ createAdvertisementElement.forEach(({author, offer}) => {
   const photosBlock = advertisementElement.querySelector('.popup__photos');
   const photoElement = photosBlock.querySelector('.popup__photo');
   for (let index = 0; index < offer.photos.length; index++) {
-    const photoNewElement = photoElement.cloneNode(true);
     photoElement.src = offer.photos;
     checkChild(photosBlock);
-  };
+  }
 
   advertisementElement.querySelector('.popup__avatar').src = author.avatar;
 
