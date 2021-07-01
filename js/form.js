@@ -31,6 +31,8 @@ const activateForm = () => {
     element.removeAttribute('disabled');
   });
 };
+
 disableForm();
 activateForm();
+
 export {disableForm, activateForm};
