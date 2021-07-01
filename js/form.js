@@ -21,7 +21,7 @@ function disableForm () {
 function activateForm () {
   adForm.classList.remove('ad-form--disabled');
   mapForm.classList.remove('map__filters--disabled');
-  mapFormFieldset.remove.Attribute('disabled');
+  mapFormFieldset.removeAttribute('disabled');
 
   adFormElements.forEach((element) => {
     element.removeAttribute('disabled');
