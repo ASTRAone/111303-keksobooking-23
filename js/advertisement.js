@@ -52,12 +52,15 @@ createAdvertisementElement.forEach(({author, offer}) => {
   }
 
   //выводим фотографии
-  const photosBlock = advertisementElement.querySelector('.popup__photos');
-  const photoElement = photosBlock.querySelector('.popup__photo');
-  for (let index = 0; index < offer.photos.length; index++) {
-    photoElement.src = offer.photos;
-    checkChild(photosBlock);
-  }
+  const getPhotos = function () {
+    const photosBlock = advertisementElement.querySelector('.popup__photos');
+    const photoElement = photosBlock.querySelector('.popup__photo');
+    for (let index = 0; index < offer.photos.length; index++) {
+      photoElement.src = offer.photos;
+      checkChild(photosBlock);
+    }
+  };
+  getPhotos();
 
   advertisementElement.querySelector('.popup__avatar').src = author.avatar;
 
