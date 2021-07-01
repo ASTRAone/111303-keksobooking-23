@@ -4,7 +4,7 @@ const mapForm = document.querySelector('.map__filters');
 const mapFormElements = mapForm.querySelectorAll('select');
 const mapFormFieldset = mapForm.querySelector('fieldset');
 
-function disableForm () {
+const disableForm = () => {
   adForm.classList.add('ad-form--disabled');
   mapForm.classList.add('map__filters--disabled');
   mapFormFieldset.setAttribute('disabled', 'disabled');
@@ -18,7 +18,7 @@ function disableForm () {
   });
 }
 
-function activateForm () {
+const activateForm = () => {
   adForm.classList.remove('ad-form--disabled');
   mapForm.classList.remove('map__filters--disabled');
   mapFormFieldset.removeAttribute('disabled');
@@ -31,5 +31,6 @@ function activateForm () {
     element.removeAttribute('disabled');
   });
 }
-
+disableForm();
+activateForm();
 export {disableForm, activateForm};

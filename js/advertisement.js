@@ -14,7 +14,7 @@ const checkChild = (element) => {
 };
 //выводим фотографии
 
-const getPhotos = function(element, offer){
+const getPhotos = (element, offer) => {
   const photosBlock = element.querySelector('.popup__photos');
   const photoElement = photosBlock.querySelector('.popup__photo');
   for (let index = 0; index < offer.length; index++) {
@@ -23,7 +23,7 @@ const getPhotos = function(element, offer){
   }
 };
 //выводим все удобства
-const getFeatures = function(element, offer) {
+const getFeatures = (element, offer) => {
   const featuresListContainer = element.querySelector('.popup__features');
   const modifiers = offer.map((feature) => `popup__feature--${feature}`);
   featuresListContainer.querySelectorAll('.popup__feature').forEach((classItem) => {
@@ -36,7 +36,7 @@ const getFeatures = function(element, offer) {
 };
 
 //выводим описание
-const getDescription = function (element, offer) {
+const getDescription =  (element, offer) => {
   element.querySelector('.popup__description').textContent = offer.description;
   if (element.querySelector('.popup__description').textContent === undefined || element.querySelector('.popup__description').textContent === '') {
     element.querySelector('.popup__description').remove();
@@ -63,9 +63,9 @@ createAdvertisementElement.forEach(({author, offer}) => {
   advertisementElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
 
 
-  getFeatures(advertisementElement,offer.features);
-  getPhotos(advertisementElement,offer.photos);
-  getDescription(advertisementElement,offer.description);
+  getFeatures(advertisementElement, offer.features);
+  getPhotos(advertisementElement, offer.photos);
+  getDescription(advertisementElement, offer.description);
 
   advertisementElement.querySelector('.popup__avatar').src = author.avatar;
   similarAdvertisementFragment.appendChild(advertisementElement);
