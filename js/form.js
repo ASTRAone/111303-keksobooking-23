@@ -32,7 +32,4 @@ const activateForm = () => {
   });
 };
 
-disableForm();
-activateForm();
-
 export {disableForm, activateForm};
