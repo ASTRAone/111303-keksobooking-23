@@ -16,7 +16,7 @@ const disableForm = () => {
   mapFormElements.forEach((element) => {
     element.setAttribute('disabled', 'disabled');
   });
-}
+};
 
 const activateForm = () => {
   adForm.classList.remove('ad-form--disabled');
@@ -30,7 +30,7 @@ const activateForm = () => {
   mapFormElements.forEach((element) => {
     element.removeAttribute('disabled');
   });
-}
+};
 disableForm();
 activateForm();
 export {disableForm, activateForm};
