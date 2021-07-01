@@ -44,6 +44,8 @@ const LAT_MAX = 35.7;
 const LNG_MIN = 139.7;
 const LNG_MAX = 139.8;
 
+const SIMILAR_COUNT = 1;
+
 const createAdvertisement = () => {
   const offerlocation = {
     lat: getRandomCoordinate(LAT_MIN, LAT_MAX, 5),
@@ -73,4 +75,8 @@ const createAdvertisement = () => {
   };
 };
 
-export {createAdvertisement};
+const similarAdvertisement = () => new Array(SIMILAR_COUNT)
+  .fill(null)
+  .map(() => createAdvertisement());
+
+export {similarAdvertisement};
