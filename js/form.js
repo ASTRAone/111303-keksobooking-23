@@ -35,7 +35,7 @@ const adTitleInputValidation = () => {
     adTitleInput.setCustomValidity('');
   }
   adTitleInput.reportValidity();
-}
+};
 
 const housePriceInputValidation = () => {
   const housePriceValue = Number(housePriceInput.value);
@@ -49,7 +49,7 @@ const housePriceInputValidation = () => {
     housePriceInput.setCustomValidity('');
   }
   housePriceInput.reportValidity();
-}
+};
 const guestsNumberSelectValidation =  (evt) => {
   const value = Number(evt.target.value);
   const rooms = Number(roomsNumberSelect.value);
@@ -66,7 +66,7 @@ const guestsNumberSelectValidation =  (evt) => {
   }
 
   guestsNumberSelect.reportValidity();
-}
+};
 
 const disableForm = () => {
   adForm.classList.add('ad-form--disabled');
@@ -99,7 +99,7 @@ const activateForm = () => {
 // Валидация формы
 
 adTitleInput.addEventListener('input', () => {
- adTitleInputValidation();
+  adTitleInputValidation();
 });
 houseTypeSelect.addEventListener('change', (evt) => {
   housePriceInput.setAttribute('min', PRICES[evt.target.value]);
