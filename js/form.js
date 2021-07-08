@@ -26,6 +26,9 @@ const houseTypeSelect = adForm.querySelector('#type');
 const housePriceInput = adForm.querySelector('#price');
 const roomsNumberSelect = adForm.querySelector('#room_number');
 const guestsNumberSelect = adForm.querySelector('#capacity');
+const setTimeIn = adForm.querySelector('#timein');
+const setTimeOut = adForm.querySelector('#timeout');
+
 
 const checkAdTitleValidation = () => {
   const valueLength = adTitleInput.value.length;
@@ -34,7 +37,7 @@ const checkAdTitleValidation = () => {
   } else if (valueLength < MIN_TEXT_LENGTH) {
     adTitleInput.setCustomValidity(`Поле должно содержать минимум ${MIN_TEXT_LENGTH} символов. Еще ${MIN_TEXT_LENGTH - valueLength} символов.`);
   } else if (valueLength > MAX_TEXT_LENGTH) {
-    adTitleInput.setCustomValidity( `Максимальное количество симловов ${MAX_TEXT_LENGTH}.Удалите лишние ${valueLength - MAX_TEXT_LENGTH} символов.`);
+    adTitleInput.setCustomValidity( `Максимальное количество символов ${MAX_TEXT_LENGTH}.Удалите лишние ${valueLength - MAX_TEXT_LENGTH} символов.`);
   } else {
     adTitleInput.setCustomValidity('');
   }
@@ -116,6 +119,14 @@ housePriceInput.addEventListener('input', () => {
 
 guestsNumberSelect.addEventListener('change', (evt) => {
   checkGuestsValidation(evt);
+});
+
+setTimeIn.addEventListener('change', (evt) => {
+  setTimeOut.value = evt.target.value;
+});
+
+setTimeOut.addEventListener('change', (evt) => {
+  setTimeIn.value = evt.target.value;
 });
 
 export {disableForm, activateForm};
