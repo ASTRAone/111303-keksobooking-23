@@ -1,3 +1,21 @@
+const PRICES = {
+  palace: '10000',
+  flat: '1000',
+  house: '5000',
+  bungalow: '0',
+  hotel: '3000',
+};
+const MAX_PRICE = 1000000;
+const MIN_TEXT_LENGTH = 30;
+const MAX_TEXT_LENGTH = 100;
+const ONE_GUEST = 1;
+const TWO_GUESTS = 2;
+const THREE_GUESTS = 3;
+const MAX_ROOM_COUNT = 100;
+const ROOM_COUNT_TWO = 2;
+const ROOM_COUNT_THREE = 3;
+const NONE_GUESTS = 0;
+
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.querySelectorAll('fieldset');
 const mapForm = document.querySelector('.map__filters');
@@ -8,40 +26,27 @@ const houseTypeSelect = adForm.querySelector('#type');
 const housePriceInput = adForm.querySelector('#price');
 const roomsNumberSelect = adForm.querySelector('#room_number');
 const guestsNumberSelect = adForm.querySelector('#capacity');
-const PRICES = {
-  palace: '10000',
-  flat: '1000',
-  house: '5000',
-  bungalow: '0',
-  hotel: '3000',
-};
-const MAX_PRICE = 1000000;
-const MIN_TEXT_LENGTH = 10;
-const MAX_TEXT_LENGTH = 30;
-const ONE_GUEST = 1;
-const TWO_GUESTS = 2;
-const THREE_GUESTS = 3;
-const MAX_ROOM_COUNT = 100;
-const ROOM_COUNT_TWO = 2;
-const ROOM_COUNT_THREE = 3;
-const NONE_GUESTS = 0;
-const adTitleInputValidation = () => {
+
+const checkAdTitleValidation = () => {
   const valueLength = adTitleInput.value.length;
-  if (valueLength < MIN_TEXT_LENGTH) {
-    adTitleInput.setCustomValidity(`Ещё ${MIN_TEXT_LENGTH - valueLength} символ`);
+  if (adTitleInput.validity.valueMissing) {
+    adTitleInput.setCustomValidity('Обязательное поле для заполнения');
+  } else if (valueLength < MIN_TEXT_LENGTH) {
+    adTitleInput.setCustomValidity(`Поле должно содержать минимум ${MIN_TEXT_LENGTH} символов. Еще ${MIN_TEXT_LENGTH - valueLength} символов.`);
   } else if (valueLength > MAX_TEXT_LENGTH) {
-    adTitleInput.setCustomValidity(`Удалите лишние ${valueLength - MAX_TEXT_LENGTH} символ`);
+    adTitleInput.setCustomValidity( `Максимальное количество симловов ${MAX_TEXT_LENGTH}.Удалите лишние ${valueLength - MAX_TEXT_LENGTH} символов.`);
   } else {
     adTitleInput.setCustomValidity('');
   }
   adTitleInput.reportValidity();
 };
 
-const housePriceInputValidation = () => {
+const checkHousePriceValidation = () => {
   const housePriceValue = Number(housePriceInput.value);
   const minPrice = Number(housePriceInput.getAttribute('min'));
-
-  if (housePriceValue < minPrice) {
+  if (housePriceInput.validity.valueMissing) {
+    housePriceInput.setCustomValidity('Обязательное поля для заполнения');
+  } else if (housePriceValue < minPrice) {
     housePriceInput.setCustomValidity(`Минимальная цена ${minPrice} руб.`);
   } else if (housePriceValue > MAX_PRICE) {
     housePriceInput.setCustomValidity(`Максимальная цена ${MAX_PRICE} руб.`);
@@ -50,7 +55,7 @@ const housePriceInputValidation = () => {
   }
   housePriceInput.reportValidity();
 };
-const guestsNumberSelectValidation =  (evt) => {
+const checkGuestsValidation =  (evt) => {
   const value = Number(evt.target.value);
   const rooms = Number(roomsNumberSelect.value);
   if (value === ONE_GUEST && rooms === MAX_ROOM_COUNT) {
@@ -99,18 +104,18 @@ const activateForm = () => {
 // Валидация формы
 
 adTitleInput.addEventListener('input', () => {
-  adTitleInputValidation();
+  checkAdTitleValidation();
 });
 houseTypeSelect.addEventListener('change', (evt) => {
   housePriceInput.setAttribute('min', PRICES[evt.target.value]);
   housePriceInput.setAttribute('placeholder', PRICES[evt.target.value]);
 });
 housePriceInput.addEventListener('input', () => {
-  housePriceInputValidation();
+  checkHousePriceValidation();
 });
 
 guestsNumberSelect.addEventListener('change', (evt) => {
-  guestsNumberSelectValidation(evt);
+  checkGuestsValidation(evt);
 });
 
 export {disableForm, activateForm};
