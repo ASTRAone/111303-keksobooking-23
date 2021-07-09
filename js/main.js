@@ -1,4 +1,3 @@
-import './advertisement.js';
-import {activateForm} from './form.js';
+import {createMarkers} from './map.js';
 
-activateForm();
+createMarkers();

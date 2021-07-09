@@ -45,8 +45,6 @@ const getDescription =  (element, offer) => {
 
 const similarAdvertisementTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-//сюда нужно вставить заполненный фрагмент
-const mapCanvas = document.querySelector('#map-canvas');
 //фрагмент, который будем заполнять и вставлять в разметку
 const similarAdvertisementFragment = document.createDocumentFragment();
 
@@ -69,6 +67,7 @@ createAdvertisementElement.forEach(({author, offer}) => {
 
   advertisementElement.querySelector('.popup__avatar').src = author.avatar;
   similarAdvertisementFragment.appendChild(advertisementElement);
+
 });
 
-mapCanvas.appendChild(similarAdvertisementFragment);
+export {createAdvertisementElement};

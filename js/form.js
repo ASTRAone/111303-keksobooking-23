@@ -129,4 +129,4 @@ setTimeOut.addEventListener('change', (evt) => {
   setTimeIn.value = evt.target.value;
 });
 
-export {disableForm, activateForm};
+export {disableForm, activateForm, adForm};
