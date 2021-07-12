@@ -53,9 +53,8 @@ const setAddressCoordinates = () => {
 
 setAddressCoordinates();
 
-const createMarkers = (arr) => {
-  arr.forEach((element) => {
-    const {lat, lng} = element.location;
+const createMarkers = (offer) => {
+    const {lat, lng} = offer.location
 
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
@@ -76,12 +75,11 @@ const createMarkers = (arr) => {
     marker
       .addTo(map)
       .bindPopup(
-        createAdvertisementElement(element),
+        createAdvertisementElement(offer),
         {
           keepInView: true,
         },
       );
-  });
-};
+  };
 
 export {createMarkers};

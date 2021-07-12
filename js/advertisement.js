@@ -1,5 +1,3 @@
-import {similarAdvertisement} from './data.js';
-
 const PLACE_TYPES_LIST = {
   'flat': 'Квартира',
   'bungalow': 'Бунгало',
@@ -45,12 +43,8 @@ const getDescription =  (element, offer) => {
 
 const similarAdvertisementTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-//фрагмент, который будем заполнять и вставлять в разметку
-const similarAdvertisementFragment = document.createDocumentFragment();
 
-const createAdvertisementElement = similarAdvertisement();
-
-createAdvertisementElement.forEach(({author, offer}) => {
+const createAdvertisementElement = (author, offer) => {
   const advertisementElement = similarAdvertisementTemplate.cloneNode(true);
   const placeTypeKey = offer.type;
   advertisementElement.querySelector('.popup__title').textContent = offer.title;
@@ -66,8 +60,8 @@ createAdvertisementElement.forEach(({author, offer}) => {
   getDescription(advertisementElement, offer.description);
 
   advertisementElement.querySelector('.popup__avatar').src = author.avatar;
-  similarAdvertisementFragment.appendChild(advertisementElement);
 
-});
+  return advertisementElement;
+};
 
 export {createAdvertisementElement};

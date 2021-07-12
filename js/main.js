@@ -1,3 +1,6 @@
 import {createMarkers} from './map.js';
+import {similarAdvertisement} from './data.js';
 
-createMarkers();
+const similarAds = similarAdvertisement();
+
+createMarkers(similarAds);
