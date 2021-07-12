@@ -54,32 +54,32 @@ const setAddressCoordinates = () => {
 setAddressCoordinates();
 
 const createMarkers = (offer) => {
-    const {lat, lng} = offer.location
+  const {lat, lng} = offer.location;
 
-    const icon = L.icon({
-      iconUrl: 'img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    });
+  const icon = L.icon({
+    iconUrl: 'img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
 
-    const marker = L.marker(
+  const marker = L.marker(
+    {
+      lat,
+      lng,
+    },
+    {
+      icon,
+    },
+  );
+
+  marker
+    .addTo(map)
+    .bindPopup(
+      createAdvertisementElement(offer),
       {
-        lat,
-        lng,
-      },
-      {
-        icon,
+        keepInView: true,
       },
     );
-
-    marker
-      .addTo(map)
-      .bindPopup(
-        createAdvertisementElement(offer),
-        {
-          keepInView: true,
-        },
-      );
-  };
+};
 
 export {createMarkers};
