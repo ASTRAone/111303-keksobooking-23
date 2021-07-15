@@ -44,10 +44,10 @@ const LAT_MAX = 35.7;
 const LNG_MIN = 139.7;
 const LNG_MAX = 139.8;
 
-const SIMILAR_COUNT = 1;
+const SIMILAR_COUNT = 4;
 
 const createAdvertisement = () => {
-  const offerlocation = {
+  const location = {
     lat: getRandomCoordinate(LAT_MIN, LAT_MAX, 5),
     lng: getRandomCoordinate(LNG_MIN, LNG_MAX, 5),
   };
@@ -60,7 +60,7 @@ const createAdvertisement = () => {
     },
     offer: {
       title: getRandomArrayElement(TITLES),
-      address: `${offerlocation.lat}, ${offerlocation.lng}`,
+      address: `${location.lat}, ${location.lng}`,
       price: getRandomNumber(0, 10000),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomNumber(1, 10),
@@ -70,7 +70,7 @@ const createAdvertisement = () => {
       features,
       description: getRandomArrayElement(DESCRIPTION),
       photos: getRandomArrayElement(PHOTOS),
-      location: offerlocation,
+      location: location,
     },
   };
 };
