@@ -12,10 +12,13 @@ const resetButtons = document.querySelector('.ad-form__reset');
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    disableForm();
     activateForm();
+    address.value = `${DefaultCoordinates.lat}, ${DefaultCoordinates.lng}`;
   })
-  .setView(DefaultCoordinates, 12);
+  .setView({
+    lat: DefaultCoordinates.lat,
+    lng: DefaultCoordinates.lng,
+  }, 12);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:
@@ -27,12 +30,12 @@ const mainPinIcon = L.icon({
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
-
 const mainPinMarker = L.marker(DefaultCoordinates, {
   draggable: true,
   icon: mainPinIcon,
 });
 mainPinMarker.addTo(map);
+
 
 // заполнение адреса по умолчанию и обновление при смене положения пина
 const defaultAddress = mainPinMarker.getLatLng();
@@ -45,9 +48,8 @@ mainPinMarker.on('moveend', (evt) => {
 
 const markerGroup = L.layerGroup().addTo(map);
 
-const createMarker = (offer) => {
-  const lat = offer.location;
-  const lng = offer.location;
+const createMarker = ({author, offer}) => {
+  const {lat, lng} = DefaultCoordinates;
   const icon = L.icon({
     iconUrl: '../img/pin.svg',
     iconSize: [40, 40],
@@ -63,12 +65,13 @@ const createMarker = (offer) => {
     },
   );
 
-  marker.addTo(markerGroup).bindPopup(() => createAdvertisementElement(offer), {
+  marker.addTo(markerGroup).bindPopup(() => createAdvertisementElement({author, offer}), {
     keepInView: true,
   });
 };
 
-similarAdvertisement().forEach((ad) => createMarker(ad.offer));
+similarAdvertisement().forEach((ad) => createMarker(ad));
+
 
 resetButtons.addEventListener('click', (evt) => {
   evt.preventDefault();
