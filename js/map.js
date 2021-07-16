@@ -1,5 +1,5 @@
 import  {createAdvertisementElement} from './advertisement.js';
-import {disableForm, activateForm} from './form.js';
+import {activateForm} from './form.js';
 import {similarAdvertisement} from './data.js';
 
 const DefaultCoordinates = {
