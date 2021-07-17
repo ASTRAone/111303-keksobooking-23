@@ -46,11 +46,13 @@ const LNG_MAX = 139.8;
 
 const SIMILAR_COUNT = 4;
 
+const generateLocation = () => ({
+  lat: getRandomCoordinate(LAT_MIN, LAT_MAX, 5),
+  lng: getRandomCoordinate(LNG_MIN, LNG_MAX, 5),
+});
+
 const createAdvertisement = () => {
-  const location = {
-    lat: getRandomCoordinate(LAT_MIN, LAT_MAX, 5),
-    lng: getRandomCoordinate(LNG_MIN, LNG_MAX, 5),
-  };
+  const offerlocation = generateLocation();
   const featuresRandomIndex = getRandomNumber(1, FEATURES.length - 1);
   const features = shuffle(FEATURES).slice(0, featuresRandomIndex);
 
@@ -60,7 +62,7 @@ const createAdvertisement = () => {
     },
     offer: {
       title: getRandomArrayElement(TITLES),
-      address: `${location.lat}, ${location.lng}`,
+      address: `${offerlocation.lat}, ${offerlocation.lng}`,
       price: getRandomNumber(0, 10000),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomNumber(1, 10),
@@ -70,7 +72,10 @@ const createAdvertisement = () => {
       features,
       description: getRandomArrayElement(DESCRIPTION),
       photos: getRandomArrayElement(PHOTOS),
-      location: location,
+    },
+    location: {
+      lat: offerlocation.lat,
+      lng: offerlocation.lng,
     },
   };
 };

@@ -48,8 +48,8 @@ mainPinMarker.on('moveend', (evt) => {
 
 const markerGroup = L.layerGroup().addTo(map);
 
-const createMarker = ({author, offer}) => {
-  const {lat, lng} = DefaultCoordinates;
+const createMarker = ({author, offer, location}) => {
+  const {lat, lng} = location;
   const icon = L.icon({
     iconUrl: '../img/pin.svg',
     iconSize: [40, 40],
@@ -70,7 +70,7 @@ const createMarker = ({author, offer}) => {
   });
 };
 
-similarAdvertisement().forEach((ad) => createMarker(ad));
+similarAdvertisement().forEach(({author, offer, location}) => createMarker({author, offer, location}));
 
 
 resetButtons.addEventListener('click', (evt) => {
