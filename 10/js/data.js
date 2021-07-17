@@ -44,13 +44,15 @@ const LAT_MAX = 35.7;
 const LNG_MIN = 139.7;
 const LNG_MAX = 139.8;
 
-const SIMILAR_COUNT = 1;
+const SIMILAR_COUNT = 4;
+
+const generateLocation = () => ({
+  lat: getRandomCoordinate(LAT_MIN, LAT_MAX, 5),
+  lng: getRandomCoordinate(LNG_MIN, LNG_MAX, 5),
+});
 
 const createAdvertisement = () => {
-  const offerlocation = {
-    lat: getRandomCoordinate(LAT_MIN, LAT_MAX, 5),
-    lng: getRandomCoordinate(LNG_MIN, LNG_MAX, 5),
-  };
+  const offerlocation = generateLocation();
   const featuresRandomIndex = getRandomNumber(1, FEATURES.length - 1);
   const features = shuffle(FEATURES).slice(0, featuresRandomIndex);
 
@@ -70,7 +72,10 @@ const createAdvertisement = () => {
       features,
       description: getRandomArrayElement(DESCRIPTION),
       photos: getRandomArrayElement(PHOTOS),
-      location: offerlocation,
+    },
+    location: {
+      lat: offerlocation.lat,
+      lng: offerlocation.lng,
     },
   };
 };

@@ -1,67 +1,60 @@
-import {createAdvertisementElement} from './advertisement.js';
-import {disableForm, activateForm} from './form.js';
+import  {createAdvertisementElement} from './advertisement.js';
+import {activateForm} from './form.js';
+import {similarAdvertisement} from './data.js';
 
-const DefaultСoordinates = {
-  LAT: 35.68171,
-  LNG: 139.75389,
+const DefaultCoordinates = {
+  lat: 35.69381,
+  lng: 139.70351,
 };
-const addressInput = document.querySelector('#address');
-disableForm();
-const map = L.map('map-canvas')
-  .on('load', () => activateForm())
-  .setView(
-    {
-      lat: DefaultСoordinates.LAT,
-      lng: DefaultСoordinates.LNG,
-    }, 13);
 
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  },
-).addTo(map);
+const address = document.querySelector('#address');
+const resetButtons = document.querySelector('.ad-form__reset');
+
+const map = L.map('map-canvas')
+  .on('load', () => {
+    activateForm();
+    address.value = `${DefaultCoordinates.lat}, ${DefaultCoordinates.lng}`;
+  })
+  .setView({
+    lat: DefaultCoordinates.lat,
+    lng: DefaultCoordinates.lng,
+  }, 12);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: 'img/main-pin.svg',
+  iconUrl: '../img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
-
-const mainMarker = L.marker(
-  {
-    lat: DefaultСoordinates.LAT,
-    lng: DefaultСoordinates.LNG,
-  },
-  {
-    draggable: true,
-    icon: mainPinIcon,
-  },
-);
-
-mainMarker.addTo(map);
+const mainPinMarker = L.marker(DefaultCoordinates, {
+  draggable: true,
+  icon: mainPinIcon,
+});
+mainPinMarker.addTo(map);
 
 
-const setAddressCoordinates = () => {
-  addressInput.value = `${DefaultСoordinates.LAT}, ${DefaultСoordinates.LNG}`;
+// заполнение адреса по умолчанию и обновление при смене положения пина
+const defaultAddress = mainPinMarker.getLatLng();
+address.value = `${defaultAddress.lat}, ${defaultAddress.lng}`;
 
-  mainMarker.on('moveend', (evt) => {
-    const location = evt.target.getLatLng();
-    addressInput.value = `${location.lat.toFixed(5)}, ${location.lng.toFixed(5)}`;
-  });
-};
+mainPinMarker.on('moveend', (evt) => {
+  const newAddress = evt.target.getLatLng();
+  address.value = `${newAddress.lat.toFixed(5)}, ${newAddress.lng.toFixed(5)}`;
+});
 
-setAddressCoordinates();
+const markerGroup = L.layerGroup().addTo(map);
 
-const createMarkers = (offer) => {
-  const {lat, lng} = offer.location;
-
+const createMarker = ({author, offer, location}) => {
+  const {lat, lng} = location;
   const icon = L.icon({
-    iconUrl: 'img/pin.svg',
+    iconUrl: '../img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
-
   const marker = L.marker(
     {
       lat,
@@ -72,14 +65,18 @@ const createMarkers = (offer) => {
     },
   );
 
-  marker
-    .addTo(map)
-    .bindPopup(
-      createAdvertisementElement(offer),
-      {
-        keepInView: true,
-      },
-    );
+  marker.addTo(markerGroup).bindPopup(() => createAdvertisementElement({author, offer}), {
+    keepInView: true,
+  });
 };
 
-export {createMarkers};
+similarAdvertisement().forEach(({author, offer, location}) => createMarker({author, offer, location}));
+
+
+resetButtons.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  mainPinMarker.setLatLng(DefaultCoordinates);
+  address.value = `${defaultAddress.lat}, ${defaultAddress.lng}`;
+  map.setView(DefaultCoordinates, 12);
+});
+
