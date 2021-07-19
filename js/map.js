@@ -12,8 +12,8 @@ const resetButtons = document.querySelector('.ad-form__reset');
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    activateForm();
     address.value = `${DefaultCoordinates.lat}, ${DefaultCoordinates.lng}`;
+    activateForm();
   })
   .setView({
     lat: DefaultCoordinates.lat,
@@ -70,11 +70,9 @@ const renderOfferPins = (ad) => {
       keepInView: true,
     });
 };
-
 similarAdvertisement().forEach((ad) => {
   renderOfferPins(ad);
 });
-
 const resetMap = () => {
   mainPinMarker.setLatLng({
     lat: DefaultCoordinates.lat,
@@ -87,5 +85,3 @@ const resetMap = () => {
 };
 
 resetButtons.addEventListener('click', resetMap);
-
-

@@ -103,7 +103,7 @@ const activateForm = () => {
     element.removeAttribute('disabled');
   });
 };
-
+disableForm();
 // Валидация формы
 
 adTitleInput.addEventListener('input', () => {
@@ -129,4 +129,4 @@ setTimeOut.addEventListener('change', (evt) => {
   setTimeIn.value = evt.target.value;
 });
 
-export {disableForm, activateForm, adForm};
+export {activateForm};

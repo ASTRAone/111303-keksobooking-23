@@ -44,7 +44,7 @@ const LAT_MAX = 35.7;
 const LNG_MIN = 139.7;
 const LNG_MAX = 139.8;
 
-const SIMILAR_COUNT = 4;
+const SIMILAR_COUNT = 11;
 
 const generateLocation = () => ({
   lat: getRandomCoordinate(LAT_MIN, LAT_MAX, 5),
@@ -58,7 +58,10 @@ const createAdvertisement = () => {
 
   return {
     author: {
-      avatar: `img/avatars/user0${getRandomNumber(1, 10)}.png`,
+      avatar: ((getRandomNumber(1,11) >= 11) ?
+        ('img/avatars/user11.png')
+        :
+        (`img/avatars/user0${getRandomNumber(1,9)}.png`)),
     },
     offer: {
       title: getRandomArrayElement(TITLES),
