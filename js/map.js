@@ -48,7 +48,7 @@ mainPinMarker.on('moveend', (evt) => {
 
 const markerGroup = L.layerGroup().addTo(map);
 
-const offerIcon = L.icon({
+const offerPinIcon = L.icon({
   iconUrl: 'img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
@@ -61,7 +61,7 @@ const renderOfferPins = (ad) => {
       lng: ad.location.lng,
     },
     {
-      offerIcon,
+      offerPinIcon,
     },
   );
 
