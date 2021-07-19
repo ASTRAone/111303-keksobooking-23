@@ -61,10 +61,9 @@ const renderOfferPins = (ad) => {
       lng: ad.location.lng,
     },
     {
-      offerPinIcon,
+      icon: offerPinIcon,
     },
   );
-
   marker
     .addTo(markerGroup)
     .bindPopup(() => createAdvertisementElement(ad), {
