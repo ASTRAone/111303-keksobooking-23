@@ -37,7 +37,6 @@ const mainPinMarker = L.marker(DefaultCoordinates, {
 },
 ).addTo(map);
 
-
 // заполнение адреса по умолчанию и обновление при смене положения пина
 const defaultAddress = mainPinMarker.getLatLng();
 address.value = `${defaultAddress.lat}, ${defaultAddress.lng}`;
@@ -49,27 +48,32 @@ mainPinMarker.on('moveend', (evt) => {
 
 const markerGroup = L.layerGroup().addTo(map);
 
-similarAdvertisement().forEach(({author, offer, location}) => {
-  const icon = L.icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
+const offerIcon = L.icon({
+  iconUrl: 'img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+const renderOfferPins = (ad) => {
   const marker = L.marker(
     {
-      lat: location.lat,
-      lng: location.lng,
+      lat: ad.location.lat,
+      lng: ad.location.lng,
     },
     {
-      icon,
+      offerIcon,
     },
   );
 
   marker
     .addTo(markerGroup)
-    .bindPopup(() => createAdvertisementElement({author, offer, location}), {
+    .bindPopup(() => createAdvertisementElement(ad), {
       keepInView: true,
     });
+};
+
+similarAdvertisement().forEach((ad) => {
+  renderOfferPins(ad);
 });
 
 const resetMap = () => {

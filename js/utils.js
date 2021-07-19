@@ -1,5 +1,5 @@
 // взято с https://learn.javascript.ru https://habr.com/ru/post/312880/#s2_11  https://javascript.ru/Math.round //
-const getRandomNumber = function (min, max) {
+const getRandomNumber = (min, max) => {
   let result = 0;
   if (min >= 0 && min < max) {
     result = Math.floor(Math.random() * ((max - min) + 1));
@@ -8,16 +8,17 @@ const getRandomNumber = function (min, max) {
   return 'некорректное значение';
 };
 
-const getRandomCoordinate = function (min, max, afterDot) {
-  let result = 0;
-  if (min >= 0 && min < max) {
-    result = Math.random() * ((max - min) + 1);
-    return result.toFixed(afterDot);
-  }
-  return 'некоректное значение';
+const getRandomCoordinate = (min, max, digits = 1) => {
+  const lower = Math.min(Math.abs(min), Math.abs(max));
+  const upper = Math.max(Math.abs(min), Math.abs(max));
+
+  const result = Math.random() * (upper - lower) + lower;
+
+  return +result.toFixed(digits);
+
 };
 
-const shuffle = function(array) {
+const shuffle = (array) => {
   const cloneArray = array.slice(0);
   cloneArray.sort(() => Math.random() - 0.5);
 
