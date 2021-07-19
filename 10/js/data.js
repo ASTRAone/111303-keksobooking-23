@@ -52,7 +52,7 @@ const generateLocation = () => ({
 });
 
 const createAdvertisement = () => {
-  const offerlocation = generateLocation();
+  const offerLocation = generateLocation();
   const featuresRandomIndex = getRandomNumber(1, FEATURES.length - 1);
   const features = shuffle(FEATURES).slice(0, featuresRandomIndex);
 
@@ -62,7 +62,7 @@ const createAdvertisement = () => {
     },
     offer: {
       title: getRandomArrayElement(TITLES),
-      address: `${offerlocation.lat}, ${offerlocation.lng}`,
+      address: `${offerLocation.lat}, ${offerLocation.lng}`,
       price: getRandomNumber(0, 10000),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomNumber(1, 10),
@@ -74,8 +74,8 @@ const createAdvertisement = () => {
       photos: getRandomArrayElement(PHOTOS),
     },
     location: {
-      lat: offerlocation.lat,
-      lng: offerlocation.lng,
+      lat: offerLocation.lat,
+      lng: offerLocation.lng,
     },
   };
 };

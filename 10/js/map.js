@@ -1,4 +1,4 @@
-import  {createAdvertisementElement} from './advertisement.js';
+import {createAdvertisementElement} from './advertisement.js';
 import {activateForm} from './form.js';
 import {similarAdvertisement} from './data.js';
 
@@ -26,15 +26,16 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
+
 const mainPinMarker = L.marker(DefaultCoordinates, {
   draggable: true,
   icon: mainPinIcon,
-});
-mainPinMarker.addTo(map);
+},
+).addTo(map);
 
 
 // заполнение адреса по умолчанию и обновление при смене положения пина
@@ -48,35 +49,40 @@ mainPinMarker.on('moveend', (evt) => {
 
 const markerGroup = L.layerGroup().addTo(map);
 
-const createMarker = ({author, offer, location}) => {
-  const {lat, lng} = location;
+similarAdvertisement().forEach(({author, offer, location}) => {
   const icon = L.icon({
-    iconUrl: '../img/pin.svg',
+    iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],
   });
   const marker = L.marker(
     {
-      lat,
-      lng,
+      lat: location.lat,
+      lng: location.lng,
     },
     {
       icon,
     },
   );
 
-  marker.addTo(markerGroup).bindPopup(() => createAdvertisementElement({author, offer}), {
-    keepInView: true,
+  marker
+    .addTo(markerGroup)
+    .bindPopup(() => createAdvertisementElement({author, offer, location}), {
+      keepInView: true,
+    });
+});
+
+const resetMap = () => {
+  mainPinMarker.setLatLng({
+    lat: DefaultCoordinates.lat,
+    lng: DefaultCoordinates.lng,
   });
+  map.setView({
+    lat: DefaultCoordinates.lat,
+    lng: DefaultCoordinates.lng,
+  }, 12);
 };
 
-similarAdvertisement().forEach(({author, offer, location}) => createMarker({author, offer, location}));
+resetButtons.addEventListener('click', resetMap);
 
-
-resetButtons.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  mainPinMarker.setLatLng(DefaultCoordinates);
-  address.value = `${defaultAddress.lat}, ${defaultAddress.lng}`;
-  map.setView(DefaultCoordinates, 12);
-});
 
