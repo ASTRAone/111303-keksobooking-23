@@ -1,5 +1,3 @@
-import {similarAdvertisement} from './data.js';
-
 const PLACE_TYPES_LIST = {
   'flat': 'Квартира',
   'bungalow': 'Бунгало',
@@ -7,6 +5,7 @@ const PLACE_TYPES_LIST = {
   'palace': 'Дворец',
   'hotel': 'Отель',
 };
+
 const checkChild = (element) => {
   if  (element.children.length === 0) {
     element.remove();
@@ -43,16 +42,9 @@ const getDescription =  (element, offer) => {
   }
 };
 
-const similarAdvertisementTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-//сюда нужно вставить заполненный фрагмент
-const mapCanvas = document.querySelector('#map-canvas');
-//фрагмент, который будем заполнять и вставлять в разметку
-const similarAdvertisementFragment = document.createDocumentFragment();
-
-const createAdvertisementElement = similarAdvertisement();
-
-createAdvertisementElement.forEach(({author, offer}) => {
+const createAdvertisementElement = ({author, offer}) => {
+  const similarAdvertisementTemplate = document.querySelector('#card').content.querySelector('.popup');
+  const similarAdvertisementFragment = document.createDocumentFragment();
   const advertisementElement = similarAdvertisementTemplate.cloneNode(true);
   const placeTypeKey = offer.type;
   advertisementElement.querySelector('.popup__title').textContent = offer.title;
@@ -62,13 +54,15 @@ createAdvertisementElement.forEach(({author, offer}) => {
   advertisementElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
   advertisementElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
 
-
   getFeatures(advertisementElement, offer.features);
   getPhotos(advertisementElement, offer.photos);
   getDescription(advertisementElement, offer.description);
 
   advertisementElement.querySelector('.popup__avatar').src = author.avatar;
-  similarAdvertisementFragment.appendChild(advertisementElement);
-});
 
-mapCanvas.appendChild(similarAdvertisementFragment);
+  similarAdvertisementFragment.appendChild(advertisementElement);
+
+  return similarAdvertisementFragment;
+};
+
+export {createAdvertisementElement};

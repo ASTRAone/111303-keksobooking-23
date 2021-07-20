@@ -1,23 +1,25 @@
-// взято с https://learn.javascript.ru https://habr.com/ru/post/312880/#s2_11  https://javascript.ru/Math.round //
-const getRandomNumber = function (min, max) {
-  let result = 0;
-  if (min >= 0 && min < max) {
-    result = Math.floor(Math.random() * ((max - min) + 1));
-    return result;
+const getRandomNumber = (min, max) => {
+  min = Math.abs(Math.ceil(min));
+  max = Math.abs(Math.floor(max));
+  if (min > max || min === max) {
+    return 'некорректное значение';
   }
-  return 'некорректное значение';
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const getRandomCoordinate = function (min, max, afterDot) {
-  let result = 0;
-  if (min >= 0 && min < max) {
-    result = Math.random() * ((max - min) + 1);
-    return result.toFixed(afterDot);
+// Случайное число с плавающей точкой
+
+const getRandomCoordinate = (min, max, digits) => {
+  min = Math.abs(min);
+  max = Math.abs(max);
+  if (max < min || min === max) {
+    return 'некорректное значение';
   }
-  return 'некоректное значение';
+  const result = (Math.random() * (max - min)) + min;
+  return result.toFixed(digits);
 };
 
-const shuffle = function(array) {
+const shuffle = (array) => {
   const cloneArray = array.slice(0);
   cloneArray.sort(() => Math.random() - 0.5);
 
