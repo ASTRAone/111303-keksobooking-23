@@ -57,7 +57,7 @@ const createAdvertisement = (index) => {
   const features = shuffle(FEATURES).slice(0, featuresRandomIndex);
   return {
     author: {
-      avatar: `img/avatars/user0${index + 1}.png`
+      avatar: `img/avatars/user0${index + 1}.png`,
     },
     offer: {
       title: getRandomArrayElement(TITLES),
