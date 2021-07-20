@@ -1,4 +1,4 @@
-import {getRandomArrayElement, getRandomNumber, getRandomCoordinate, shuffle} from './utils.js';
+import {getRandomArrayElement, getRandomNumber, getRandomCoordinate, shuffle, addZeroIfNeeded} from './utils.js';
 
 const TYPES = [
   'palace',
@@ -44,7 +44,7 @@ const LAT_MAX = 35.7;
 const LNG_MIN = 139.7;
 const LNG_MAX = 139.8;
 
-const SIMILAR_COUNT = 4;
+const SIMILAR_COUNT = 11;
 
 const generateLocation = () => ({
   lat: getRandomCoordinate(LAT_MIN, LAT_MAX, 5),
@@ -58,7 +58,7 @@ const createAdvertisement = () => {
 
   return {
     author: {
-      avatar: `img/avatars/user0${getRandomNumber(1, 10)}.png`,
+      avatar: `img/avatars/user${addZeroIfNeeded(getRandomNumber(1, 10))}.png`,
     },
     offer: {
       title: getRandomArrayElement(TITLES),

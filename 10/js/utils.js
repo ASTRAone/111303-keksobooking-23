@@ -1,21 +1,22 @@
-// взято с https://learn.javascript.ru https://habr.com/ru/post/312880/#s2_11  https://javascript.ru/Math.round //
 const getRandomNumber = (min, max) => {
-  let result = 0;
-  if (min >= 0 && min < max) {
-    result = Math.floor(Math.random() * ((max - min) + 1));
-    return result;
+  min = Math.abs(Math.ceil(min));
+  max = Math.abs(Math.floor(max));
+  if (min > max || min === max) {
+    return 'некорректное значение';
   }
-  return 'некорректное значение';
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const getRandomCoordinate = (min, max, digits = 1) => {
-  const lower = Math.min(Math.abs(min), Math.abs(max));
-  const upper = Math.max(Math.abs(min), Math.abs(max));
+// Случайное число с плавающей точкой
 
-  const result = Math.random() * (upper - lower) + lower;
-
-  return +result.toFixed(digits);
-
+const getRandomCoordinate = (min, max, digits) => {
+  min = Math.abs(min);
+  max = Math.abs(max);
+  if (max < min || min === max) {
+    return 'некорректное значение';
+  }
+  const result = (Math.random() * (max - min)) + min;
+  return result.toFixed(digits);
 };
 
 const shuffle = (array) => {
@@ -28,4 +29,11 @@ const shuffle = (array) => {
 const getRandomArrayElement = (items) =>
   items[getRandomNumber(0, items.length - 1)];
 
-export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, shuffle};
+const addZeroIfNeeded = (number) => {
+  if (number < 10) {
+    return `0${number}`;
+  }
+  return `${number}`;
+};
+
+export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, shuffle, addZeroIfNeeded};
