@@ -29,11 +29,4 @@ const shuffle = (array) => {
 const getRandomArrayElement = (items) =>
   items[getRandomNumber(0, items.length - 1)];
 
-const addZeroIfNeeded = (number) => {
-  if (number < 10) {
-    return `0${number}`;
-  }
-  return `${number}`;
-};
-
-export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, shuffle, addZeroIfNeeded};
+export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, shuffle};
