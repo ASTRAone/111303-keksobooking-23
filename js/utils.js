@@ -1,4 +1,4 @@
-const getRandomNumber = function (min, max) {
+const getRandomNumber = (min, max) => {
   min = Math.abs(Math.ceil(min));
   max = Math.abs(Math.floor(max));
   if (min > max || min === max) {
@@ -9,15 +9,14 @@ const getRandomNumber = function (min, max) {
 
 // Случайное число с плавающей точкой
 
-const getRandomCoordinate = function (min, max, digits) {
+const getRandomCoordinate = (min, max, digits) => {
   min = Math.abs(min);
   max = Math.abs(max);
   if (max < min || min === max) {
     return 'некорректное значение';
   }
-
   const result = (Math.random() * (max - min)) + min;
-  return parseFloat(result.toFixed(digits));
+  return result.toFixed(digits);
 };
 
 const shuffle = (array) => {
@@ -30,4 +29,11 @@ const shuffle = (array) => {
 const getRandomArrayElement = (items) =>
   items[getRandomNumber(0, items.length - 1)];
 
-export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, shuffle};
+const addZeroIfNeeded = (number) => {
+  if (number < 10) {
+    return `0${number}`;
+  }
+  return `${number}`;
+};
+
+export {getRandomArrayElement, getRandomNumber, getRandomCoordinate, shuffle, addZeroIfNeeded};

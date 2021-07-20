@@ -1,4 +1,4 @@
-import {getRandomArrayElement, getRandomNumber, getRandomCoordinate, shuffle} from './utils.js';
+import {getRandomArrayElement, getRandomNumber, getRandomCoordinate, shuffle, addZeroIfNeeded} from './utils.js';
 
 const TYPES = [
   'palace',
@@ -58,10 +58,7 @@ const createAdvertisement = () => {
 
   return {
     author: {
-      avatar: ((getRandomNumber(1,11) >= 11) ?
-        ('img/avatars/user11.png')
-        :
-        (`img/avatars/user0${getRandomNumber(1,9)}.png`)),
+      avatar: `img/avatars/user${addZeroIfNeeded(getRandomNumber(1, 10))}.png`,
     },
     offer: {
       title: getRandomArrayElement(TITLES),

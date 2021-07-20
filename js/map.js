@@ -1,5 +1,4 @@
 import {createAdvertisementElement} from './advertisement.js';
-import {activateForm} from './form.js';
 import {similarAdvertisement} from './data.js';
 
 const DefaultCoordinates = {
@@ -11,14 +10,14 @@ const address = document.querySelector('#address');
 const resetButtons = document.querySelector('.ad-form__reset');
 
 const map = L.map('map-canvas')
-  .on('load', () => {
-    address.value = `${DefaultCoordinates.lat}, ${DefaultCoordinates.lng}`;
-    activateForm();
-  })
   .setView({
     lat: DefaultCoordinates.lat,
     lng: DefaultCoordinates.lng,
   }, 12);
+
+const mapInit = (activateForm) => {
+  map.on('load', activateForm);
+};
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:
@@ -85,3 +84,5 @@ const resetMap = () => {
 };
 
 resetButtons.addEventListener('click', resetMap);
+
+export {mapInit};
