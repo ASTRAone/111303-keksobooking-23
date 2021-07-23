@@ -1,33 +1,34 @@
-const addressToLoad = 'https://23.javascript.pages.academy/keksobooking/data';
-const addressToSend = 'https://23.javascript.pages.academy/keksobooking';
+const Url = {
+  SERVER: 'https://23.javascript.pages.academy/keksobooking',
+  DATA: 'https://23.javascript.pages.academy/keksobooking/data',
+};
 
-const loadAnnouncements = (onSuccess, onFail) => {
-  fetch(addressToLoad, {
-    method: 'GET',
-    credentials: 'same-origin',
-  })
+const getData = (onSuccess) => {
+  fetch(Url.DATA)
+    .then((response) => response.json())
+    .then((data) => {
+      onSuccess(data);
+    });
+};
+
+const sendData = (onSuccess, onFail, body) => {
+  fetch(
+    Url.SERVER,
+    {
+      method: 'POST',
+      body,
+    },
+  )
     .then((response) => {
-      response.ok ? onSuccess(response.json()) : onFail();
+      if (response.ok) {
+        onSuccess();
+      } else {
+        onFail();
+      }
     })
-    .catch(() => {
+    .catch (() => {
       onFail();
     });
 };
 
-const sendAnnouncement = (onSuccess, onFail, onFinal, announcement) => {
-  fetch(addressToSend, {
-    method: 'POST',
-    body: announcement,
-  })
-    .then((response) => {
-      response.ok ? onSuccess() : onFail();
-    })
-    .catch(() => {
-      onFail();
-    })
-    .finally(() => {
-      onFinal();
-    });
-};
-
-export {loadAnnouncements, sendAnnouncement};
+export {getData, sendData};

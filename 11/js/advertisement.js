@@ -13,33 +13,53 @@ const checkChild = (element) => {
 };
 //выводим фотографии
 
-const getPhotos = (element, offer) => {
-  const photosBlock = element.querySelector('.popup__photos');
-  const photoElement = photosBlock.querySelector('.popup__photo');
-  for (let index = 0; index < offer.length; index++) {
-    photoElement.src = offer;
-    checkChild(photosBlock);
+const getPhotos = (element, photos) => {
+  const photosListElement = element.querySelector('.popup__photos');
+
+  if(!photos) {
+    photosListElement.remove();
+    return;
   }
-};
-//выводим все удобства
-const getFeatures = (element, offer) => {
-  const featuresListContainer = element.querySelector('.popup__features');
-  const modifiers = offer.map((feature) => `popup__feature--${feature}`);
-  featuresListContainer.querySelectorAll('.popup__feature').forEach((classItem) => {
-    const modifier = classItem.classList[1];
-    if (!modifiers.includes(modifier)) {
-      classItem.remove();
-    }
-    checkChild(featuresListContainer);
+
+  photosListElement.innerHTML = '';
+  photos.forEach((url) => {
+    const img = document.createElement('img');
+    img.classList.add('popup__photo');
+    img.src = url;
+    img.style.width = '45px';
+    img.style.height = '40px';
+    img.setAttribute('alt', 'Фотография жилья');
+    photosListElement.appendChild(img);
   });
+  checkChild(photosListElement);
+};
+
+//выводим все удобства
+const getFeatures = (element, features) => {
+  const featureListElement = element.querySelector('.popup__features');
+
+  if(!features) {
+    featureListElement.remove();
+    return;
+  }
+
+  featureListElement.innerHTML = '';
+  features.forEach((item) => {
+    const featureElement = document.createElement('li');
+    featureElement.classList.add('popup__feature');
+    featureElement.classList.add(`popup__feature--${item}`);
+    featureListElement.appendChild(featureElement);
+  });
+  checkChild(featureListElement);
 };
 
 //выводим описание
 const getDescription =  (element, offer) => {
-  element.querySelector('.popup__description').textContent = offer.description;
-  if (element.querySelector('.popup__description').textContent === undefined || element.querySelector('.popup__description').textContent === '') {
-    element.querySelector('.popup__description').remove();
+  const descriptionElement = element.querySelector('.popup__description');
+  if (descriptionElement.textContent === offer.description) {
+    return descriptionElement;
   }
+  checkChild(descriptionElement);
 };
 
 const createAdvertisementElement = ({author, offer}) => {

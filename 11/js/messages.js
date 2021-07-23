@@ -1,30 +1,26 @@
 import {clearPage} from './form.js';
-import {sendAnnouncement} from './api.js';
-
-const adForm = document.querySelector('.ad-form');
+const ESC = 'Esc';
+const ESCAPE = 'Escape';
 const body = document.body;
 
+const esc = (evt) => evt.key === ESC || evt.key === ESCAPE;
+
 const closePopup = () => {
-  const divSuccess = document.querySelector('div.success');
-  const divError = document.querySelector('div.error');
-  if(divSuccess)
-  {
+  const divSuccess = document.querySelector('#success');
+  const divError = document.querySelector('#error');
+  if(divSuccess) {
     divSuccess.remove();
   }
-  else if(divError)
-  {
+  else if(divError) {
     divError.remove();
   }
   document.removeEventListener('click', closePopup);
-  document.removeEventListener('keyup', closePopup);
+  document.removeEventListener('keyup', esc);
 };
 
-const pressButton = (esc) => {
-  esc.key === 'Escape' ? closePopup() : '';
-};
 const onUploadFinal = () => {
   document.addEventListener('click', closePopup);
-  document.addEventListener('keyup', pressButton);
+  document.addEventListener('keyup', esc);
 };
 
 
@@ -34,7 +30,7 @@ const onUploadSuccess = () => {
   body.appendChild(templateSuccess);
 };
 
-const onUploadError = () => {
+const onUpLoadError = () => {
   const templateError = document.querySelector('#error').content;
   body.appendChild(templateError);
 };
@@ -50,12 +46,4 @@ const onLoadError = () => {
   onUploadFinal();
 };
 
-
-const formSubmit = (evt) => {
-  evt.preventDefault();
-  const formData = new FormData(adForm);
-  sendAnnouncement(onUploadSuccess, onUploadError, onUploadFinal, formData);
-};
-adForm.addEventListener('submit', formSubmit);
-
-export {onLoadError};
+export {onLoadError, onUploadFinal, onUploadSuccess, onUpLoadError};

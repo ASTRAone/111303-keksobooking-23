@@ -1,4 +1,7 @@
 import {createAdvertisementElement} from './advertisement.js';
+import {getData} from './api.js';
+
+const OFFERS_AMOUNT = 9;
 
 const DefaultCoordinates = {
   lat: 35.69381,
@@ -12,10 +15,6 @@ const map = L.map('map-canvas')
     lat: DefaultCoordinates.lat,
     lng: DefaultCoordinates.lng,
   }, 12);
-
-const mapInit = (activateForm) => {
-  map.on('load', activateForm);
-};
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:
@@ -78,5 +77,17 @@ const resetMap = () => {
     lng: DefaultCoordinates.lng,
   }, 12);
 };
+const renderCards = (data) => {
+  data.forEach((ad) => {
+    renderOfferPins(ad);
+  });
+};
 
-export {mapInit, resetMap, renderOfferPins};
+const mapInit = (activateForm) => {
+  map.on('load', activateForm);
+  getData((data) => {
+    renderCards(data.slice(0, OFFERS_AMOUNT));
+  });
+};
+
+export {mapInit, resetMap};
