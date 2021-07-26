@@ -1,5 +1,5 @@
 const Url = {
-  SERVER: 'https://23.javascript.pages.academy/keksobooking',
+  SEND: 'https://23.javascript.pages.academy/keksobooking',
   DATA: 'https://23.javascript.pages.academy/keksobooking/data',
 };
 
@@ -13,7 +13,7 @@ const getData = (onSuccess) => {
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    Url.SERVER,
+    Url.SEND,
     {
       method: 'POST',
       body,

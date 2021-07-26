@@ -7,7 +7,7 @@ const PLACE_TYPES_LIST = {
 };
 
 const checkChild = (element) => {
-  if  (element.children.length === 0) {
+  if (element.children.length === 0) {
     element.remove();
   }
 };
@@ -16,7 +16,7 @@ const checkChild = (element) => {
 const getPhotos = (element, photos) => {
   const photosListElement = element.querySelector('.popup__photos');
 
-  if(!photos) {
+  if (!photos) {
     photosListElement.remove();
     return;
   }
@@ -26,9 +26,9 @@ const getPhotos = (element, photos) => {
     const img = document.createElement('img');
     img.classList.add('popup__photo');
     img.src = url;
-    img.style.width = '45px';
-    img.style.height = '40px';
-    img.setAttribute('alt', 'Фотография жилья');
+    img.width = 45;
+    img.height = 40;
+    img.alt = 'Фотография жилья';
     photosListElement.appendChild(img);
   });
   checkChild(photosListElement);
@@ -38,7 +38,7 @@ const getPhotos = (element, photos) => {
 const getFeatures = (element, features) => {
   const featureListElement = element.querySelector('.popup__features');
 
-  if(!features) {
+  if (!features) {
     featureListElement.remove();
     return;
   }
@@ -54,10 +54,11 @@ const getFeatures = (element, features) => {
 };
 
 //выводим описание
-const getDescription =  (element, offer) => {
+const getDescription =  (element, description) => {
   const descriptionElement = element.querySelector('.popup__description');
-  if (descriptionElement.textContent === offer.description) {
-    return descriptionElement;
+  if (!description) {
+    descriptionElement.remove();
+    return;
   }
   checkChild(descriptionElement);
 };

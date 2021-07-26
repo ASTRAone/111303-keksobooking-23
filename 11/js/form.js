@@ -1,6 +1,6 @@
 import {resetMap} from './map.js';
 import {sendData} from './api.js';
-import {onUploadSuccess, onUploadFinal, onUpLoadError} from './messages.js';
+import {showErrorMessage, showPopupSuccess} from './messages.js';
 
 const PRICES = {
   palace: '10000',
@@ -141,13 +141,21 @@ const clearPage = () => {
   resetButton.addEventListener('click', () => {
     clearPage();
   });
+
 };
 
-const formSubmit = (evt) => {
-  evt.preventDefault();
-  const formData = new FormData(adForm);
-  sendData(onUploadSuccess, onUpLoadError, onUploadFinal, formData);
+const formSubmit = () => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    sendData(
+      () => showPopupSuccess(),
+      () => showErrorMessage(),
+      new FormData(evt.target),
+    );
+  });
 };
-adForm.addEventListener('submit', formSubmit);
+
+formSubmit();
+getValidation();
 
 export {disableForm, activateForm, getValidation, clearPage, formSubmit};

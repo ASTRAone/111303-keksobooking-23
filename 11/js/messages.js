@@ -1,49 +1,49 @@
 import {clearPage} from './form.js';
-const ESC = 'Esc';
-const ESCAPE = 'Escape';
-const body = document.body;
 
-const esc = (evt) => evt.key === ESC || evt.key === ESCAPE;
+const body = document.body;
+const success = document.querySelector('#success').content.querySelector('.success');
+const error = document.querySelector('#error').content.querySelector('.error');
+const errorButton = error.querySelector('.error__button');
+const successMessage = success.cloneNode(true);
+const errorMessage = error.cloneNode(true);
+
 
 const closePopup = () => {
-  const divSuccess = document.querySelector('#success');
-  const divError = document.querySelector('#error');
-  if(divSuccess) {
-    divSuccess.remove();
+  if (body.contains(successMessage)) {
+    body.removeChild(successMessage);
+  } else {
+    body.removeChild(errorMessage);
   }
-  else if(divError) {
-    divError.remove();
-  }
-  document.removeEventListener('click', closePopup);
-  document.removeEventListener('keyup', esc);
+};
+const pressButton = (esc) => {
+  esc.key === 'Escape' ? closePopup() : '';
 };
 
-const onUploadFinal = () => {
-  document.addEventListener('click', closePopup);
-  document.addEventListener('keyup', esc);
+const popupEscKeydown = (evt) => {
+  if (pressButton(evt)) {
+    evt.preventDefault();
+    closePopup();
+    document.removeEventListener('keydown', popupEscKeydown);
+  }
 };
 
+const onPopupClick = (evt) => {
+  evt.preventDefault();
+  closePopup();
+};
 
-const onUploadSuccess = () => {
-  const templateSuccess = document.querySelector('#success').content;
+const showPopupSuccess = () => {
+  body.appendChild(successMessage);
+  document.addEventListener('keydown', popupEscKeydown);
+  successMessage.addEventListener('click', onPopupClick);
   clearPage();
-  body.appendChild(templateSuccess);
 };
 
-const onUpLoadError = () => {
-  const templateError = document.querySelector('#error').content;
-  body.appendChild(templateError);
+const showErrorMessage = () => {
+  body.appendChild(errorMessage);
+  document.addEventListener('keydown', popupEscKeydown);
+  errorMessage.addEventListener('click', onPopupClick);
+  errorButton.addEventListener('click', closePopup);
 };
 
-const onLoadError = () => {
-  const divError = document.createElement('div');
-  const message = document.createElement('p');
-  divError.classList.add('error');
-  message.classList.add('error__message');
-  message.textContent = 'Ошибка загрузки данных с сервера!';
-  divError.appendChild(message);
-  document.body.appendChild(divError);
-  onUploadFinal();
-};
-
-export {onLoadError, onUploadFinal, onUploadSuccess, onUpLoadError};
+export {showErrorMessage, showPopupSuccess};
